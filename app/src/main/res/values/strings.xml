@@ -1,6 +1,26 @@
 <resources>
     <string name="app_name">Communication</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="call_log">Call Log</string>
+    <string name="cancel">Cancel</string>
+    <string name="no_number">No number entered</string>
+    <string name="phone">Phone</string>
+    <string name="hash">#</string>
+    <string name="make_call">Call this number</string>
+    <string name="send_sms">Send SMS</string>
+    <string name="sms">SMS</string>
+    <string name="star">*</string>
+    <string name="block_unblock_number">Block/Unblock number</string>
+    <string name="call_this_number_back">Call this number back</string>
+    <string name="the_direction_of_the_call">The direction of the call</string>
+    <string name="number_keypad">Number on keypad</string>
+    <string name="backspace">Backspace</string>
+    <string name="number">Number</string>
+    <string name="message">Message</string>
+    <string name="reply">Reply</string>
+    <string name="send">Send</string>
+    <string name="view_message">View message</string>
+    <string name="error_sender">Could not load message sender</string>
+    <string name="error_body">Could not load message body</string>
+    <string name="error_sending_sms">Check the phone number and message are not empty</string>
+    <string name="new_sms_received">New message received: %1$s</string>
 </resources>
