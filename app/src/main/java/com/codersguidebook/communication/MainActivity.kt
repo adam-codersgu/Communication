@@ -1,11 +1,13 @@
 package com.codersguidebook.communication
 
 import android.Manifest
+import android.app.ProgressDialog.show
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.provider.CallLog
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -18,6 +20,8 @@ import com.codersguidebook.communication.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.text.SimpleDateFormat
 import java.util.*
+import android.widget.PopupMenu
+import androidx.fragment.app.DialogFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -103,4 +107,26 @@ class MainActivity : AppCompatActivity() {
 
         communicationViewModel.callLog.value = callLog
     }
+
+    fun showCallLogPopup(view: View, phoneNumber: String) {
+        PopupMenu(this, view).apply {
+            inflate(R.menu.call_log)
+            setOnMenuItemClickListener {
+                when (it.itemId) {
+                    R.id.make_call -> {
+                        callNumber(phoneNumber)
+                        true
+                    }
+                    R.id.send_sms -> {
+                        openDialog(SendSMS(phoneNumber))
+                        true
+                    }
+                    else -> super.onOptionsItemSelected(it)
+                }
+            }
+            show()
+        }
+    }
+
+    fun openDialog(dialog: DialogFragment) = dialog.show(supportFragmentManager, null)
 }

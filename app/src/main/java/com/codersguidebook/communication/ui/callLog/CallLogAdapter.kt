@@ -25,8 +25,9 @@ class CallLogAdapter(private val activity: MainActivity) : RecyclerView.Adapter<
         internal var callback = itemView.findViewById<ImageButton>(R.id.callBack)
 
         init {
-            itemView.setOnLongClickListener{
-                // TODO: Open the CallLogOptions dialog here
+            itemView.setOnLongClickListener {
+                val phoneNumber = callLog[adapterPosition].number
+                if (phoneNumber.isNotBlank()) activity.showCallLogPopup(it, phoneNumber)
                 return@setOnLongClickListener true
             }
         }
