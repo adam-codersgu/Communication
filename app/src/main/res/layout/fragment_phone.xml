@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="14dp"
+    android:orientation="vertical"
+    android:gravity="center_horizontal">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
+
+        <HorizontalScrollView android:layout_width="250dp"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/phoneNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="30sp"
+                android:singleLine="true"
+                android:ellipsize="none"
+                android:scrollHorizontally="true" />
+        </HorizontalScrollView>
+
+        <ImageButton
+            android:id="@+id/backspace"
+            android:layout_width="54dp"
+            android:layout_height="54dp"
+            android:src="@drawable/ic_backspace"
+            android:contentDescription="@string/backspace"
+            style="@style/Widget.AppCompat.ActionButton.Overflow" />
+    </LinearLayout>
+
+    <GridLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="14dp"
+        android:useDefaultMargins="true"
+        android:columnCount="3"
+        android:rowCount="4">
+
+        <ImageButton
+            android:id="@+id/one"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/one"
+            android:contentDescription="@string/number_keypad"
+            style="@style/PhoneButton" />
+
+        <ImageButton
+            android:id="@+id/two"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/two"
+            android:contentDescription="@string/number_keypad"
+            style="@style/PhoneButton" />
+
+        <ImageButton
+            android:id="@+id/three"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/three"
+            android:contentDescription="@string/number_keypad"
+            style="@style/PhoneButton" />
+
+        <ImageButton
+            android:id="@+id/four"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/four"
+            android:contentDescription="@string/number_keypad"
+            style="@style/PhoneButton" />
+
+        <ImageButton
+            android:id="@+id/five"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/five"
+            android:contentDescription="@string/number_keypad"
+            style="@style/PhoneButton" />
+
+        <ImageButton
+            android:id="@+id/six"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/six"
+            android:contentDescription="@string/number_keypad"
+            style="@style/PhoneButton" />
+
+        <ImageButton
+            android:id="@+id/seven"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/seven"
+            android:contentDescription="@string/number_keypad"
+            style="@style/PhoneButton" />
+
+        <ImageButton
+            android:id="@+id/eight"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/eight"
+            android:contentDescription="@string/number_keypad"
+            style="@style/PhoneButton" />
+
+        <ImageButton
+            android:id="@+id/nine"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/nine"
+            android:contentDescription="@string/number_keypad"
+            style="@style/PhoneButton" />
+
+        <Button
+            android:id="@+id/star"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:text="@string/star"
+            android:textSize="30sp"
+            android:textColor="@color/material_on_background_emphasis_high_type"
+            style="@style/PhoneButton" />
+
+        <ImageButton
+            android:id="@+id/zero"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/zero"
+            android:contentDescription="@string/number_keypad"
+            style="@style/PhoneButton" />
+
+        <Button
+            android:id="@+id/hash"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:text="@string/hash"
+            android:textSize="30sp"
+            android:textColor="@color/material_on_background_emphasis_high_type"
+            style="@style/PhoneButton" />
+    </GridLayout>
+
+    <ImageButton
+        android:id="@+id/callButton"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:contentDescription="@string/make_call"
+        android:src="@drawable/ic_phone"
+        app:tint="@android:color/holo_green_dark"
+        style="@style/PhoneButton" />
+</LinearLayout>
