@@ -1,11 +1,13 @@
 package com.codersguidebook.communication.ui.sms
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.codersguidebook.communication.CommunicationViewModel
 import com.codersguidebook.communication.MainActivity
 import com.codersguidebook.communication.databinding.FragmentSmsBinding
@@ -29,10 +31,26 @@ class SMSFragment : Fragment() {
         _binding = FragmentSmsBinding.inflate(inflater, container, false)
         mainActivity = activity as MainActivity
 
-        adapter = SMSAdapter(mainActivity)
+        adapter = com.codersguidebook.communication.ui.sms.SMSAdapter(mainActivity)
 
         return binding.root
     }
+
+    @SuppressLint("NotifyDataSetChanged")
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.callLog.adapter = adapter
+
+        mainActivity.getTexts()
+
+        communicationViewModel.texts.observe(viewLifecycleOwner) { texts ->
+            smsAdapter.texts = texts
+            smsAdapter.notifyDataSetChanged()
+        }
+
+        // TODO: Assign an action to the floating action button here
+
 
     override fun onDestroyView() {
         super.onDestroyView()

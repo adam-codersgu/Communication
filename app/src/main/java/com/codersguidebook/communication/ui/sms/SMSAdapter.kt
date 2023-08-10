@@ -7,8 +7,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.codersguidebook.communication.MainActivity
 import com.codersguidebook.communication.R
+import com.codersguidebook.communication.SMS
 
 class SMSAdapter(private val activity: MainActivity) : RecyclerView.Adapter<SMSAdapter.SMSViewHolder>() {
+
+    var texts = listOf<SMS>()
 
     inner class SMSViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
@@ -31,4 +34,13 @@ class SMSAdapter(private val activity: MainActivity) : RecyclerView.Adapter<SMSA
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SMSAdapter.SMSViewHolder {
         return SMSViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.sms_entry, parent, false))
     }
+
+    override fun onBindViewHolder(holder: SMSViewHolder, position: Int) {
+        val current = texts[position]
+
+        holder.sender.text = current.sender
+        holder.body.text = current.body
+    }
+
+    override fun getItemCount() = texts.size
 }
