@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.provider.CallLog
+import android.provider.Telephony
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -15,6 +16,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.codersguidebook.communication.CallLogEvent
 import com.codersguidebook.communication.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.text.SimpleDateFormat
@@ -26,6 +28,7 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         const val READ_STORAGE_REQUEST_CODE = 1
+        const val READ_SMS_REQUEST_CODE = 2
     }
 
     private val communicationViewModel: CommunicationViewModel by viewModels()
@@ -55,6 +58,7 @@ class MainActivity : AppCompatActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode) {
             READ_STORAGE_REQUEST_CODE -> if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) getCallLogs()
+            READ_SMS_REQUEST_CODE -> if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) getTexts()
         }
     }
 
@@ -128,4 +132,29 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun openDialog(dialog: DialogFragment) = dialog.show(supportFragmentManager, null)
+
+    fun getTexts() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_SMS)
+            != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_SMS), READ_SMS_REQUEST_CODE)
+            return
+        }
+
+        val texts = mutableListOf<SMS>()
+
+        val cursor = application.contentResolver.query(Uri.parse("content://sms/inbox"), null, null, null, "date DESC")
+        cursor?.use {
+            val senderColumn = it.getColumnIndexOrThrow(Telephony.TextBasedSmsColumns.ADDRESS)
+            val bodyColumn = it.getColumnIndexOrThrow(Telephony.TextBasedSmsColumns.BODY)
+
+            while (it.moveToNext()) {
+                val sender = it.getString(senderColumn) ?: getString(R.string.error_sender)
+                val body = it.getString(bodyColumn) ?: getString(R.string.error_body)
+                val sms = SMS(sender, body)
+                texts.add(sms)
+            }
+        }
+
+        communicationViewModel.texts.value = texts.take(20)
+    }
 }
