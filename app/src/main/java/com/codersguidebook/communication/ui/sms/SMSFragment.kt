@@ -7,10 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.codersguidebook.communication.CommunicationViewModel
 import com.codersguidebook.communication.MainActivity
 import com.codersguidebook.communication.databinding.FragmentSmsBinding
+import com.codersguidebook.communication.ui.sms.SMSAdapter
 
 class SMSFragment : Fragment() {
 
@@ -31,7 +31,7 @@ class SMSFragment : Fragment() {
         _binding = FragmentSmsBinding.inflate(inflater, container, false)
         mainActivity = activity as MainActivity
 
-        adapter = com.codersguidebook.communication.ui.sms.SMSAdapter(mainActivity)
+        adapter = SMSAdapter(mainActivity)
 
         return binding.root
     }
@@ -50,7 +50,7 @@ class SMSFragment : Fragment() {
         }
 
         // TODO: Assign an action to the floating action button here
-
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
