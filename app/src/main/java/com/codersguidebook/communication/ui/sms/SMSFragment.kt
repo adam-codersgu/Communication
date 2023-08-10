@@ -45,8 +45,8 @@ class SMSFragment : Fragment() {
         mainActivity.getTexts()
 
         communicationViewModel.texts.observe(viewLifecycleOwner) { texts ->
-            smsAdapter.texts = texts
-            smsAdapter.notifyDataSetChanged()
+            adapter.texts = texts
+            adapter.notifyDataSetChanged()
         }
 
         // TODO: Assign an action to the floating action button here
