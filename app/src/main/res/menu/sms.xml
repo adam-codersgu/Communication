@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/view_message"
+        android:title="@string/view_message" />
+    <item android:id="@+id/reply"
+        android:title="@string/reply" />
+</menu>

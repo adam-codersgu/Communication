@@ -25,7 +25,7 @@ class SMSAdapter(private val activity: MainActivity) : RecyclerView.Adapter<SMSA
                 activity.openDialog(ViewSMS(texts[adapterPosition]))
             }
             itemView.setOnLongClickListener{
-                // TODO: Open the SMS options dialog here
+                activity.showSMSPopup(it, texts[adapterPosition])
                 return@setOnLongClickListener true
             }
         }

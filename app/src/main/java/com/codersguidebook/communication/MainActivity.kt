@@ -157,4 +157,24 @@ class MainActivity : AppCompatActivity() {
 
         communicationViewModel.texts.value = texts.take(20)
     }
+
+    fun showSMSPopup(view: View, text: SMS) {
+        PopupMenu(this, view).apply {
+            inflate(R.menu.sms)
+            setOnMenuItemClickListener {
+                when (it.itemId) {
+                    R.id.view_message -> {
+                        openDialog(ViewSMS(text))
+                        true
+                    }
+                    R.id.reply -> {
+                        openDialog(SendSMS(text.sender))
+                        true
+                    }
+                    else -> super.onOptionsItemSelected(it)
+                }
+            }
+            show()
+        }
+    }
 }
