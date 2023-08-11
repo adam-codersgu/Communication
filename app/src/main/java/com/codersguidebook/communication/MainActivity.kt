@@ -1,7 +1,10 @@
 package com.codersguidebook.communication
 
 import android.Manifest
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
@@ -35,6 +38,12 @@ class MainActivity : AppCompatActivity() {
         const val READ_SMS_REQUEST_CODE = 2
     }
 
+    private val broadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            getTexts()
+        }
+    }
+
     private val communicationViewModel: CommunicationViewModel by viewModels()
     private lateinit var binding: ActivityMainBinding
 
@@ -56,6 +65,18 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECEIVE_SMS)
+            != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.RECEIVE_SMS), 0)
+        }
+
+        registerReceiver(broadcastReceiver, IntentFilter("SMS_RECEIVED"), RECEIVER_NOT_EXPORTED)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        unregisterReceiver(broadcastReceiver)
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
