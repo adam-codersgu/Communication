@@ -49,7 +49,9 @@ class SMSFragment : Fragment() {
             adapter.notifyDataSetChanged()
         }
 
-        // TODO: Assign an action to the floating action button here
+        binding.fab.setOnClickListener {
+            mainActivity.openDialog(SendSMS(null))
+        }
     }
 
     override fun onDestroyView() {

@@ -7,6 +7,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.CallLog
 import android.provider.Telephony
+import android.telephony.SmsManager
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -22,7 +23,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.text.SimpleDateFormat
 import java.util.*
 import android.widget.PopupMenu
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
+import com.codersguidebook.communication.ui.sms.SendSMS
 import com.codersguidebook.communication.ui.sms.ViewSMS
 
 class MainActivity : AppCompatActivity() {
@@ -178,4 +181,25 @@ class MainActivity : AppCompatActivity() {
             show()
         }
     }
+
+    fun sendSMS(number: String, message: String): Boolean {
+        if (number.isEmpty() || message.isEmpty()) {
+            Toast.makeText(this, getString(R.string.error_sending_sms), Toast.LENGTH_LONG).show()
+            return false
+        }
+        return if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS)
+            == PackageManager.PERMISSION_GRANTED) {
+            val smsManager = getSystemService(SmsManager::class.java)
+            // 160 characters is typically the maximum size per message
+            if (message.length > 160) {
+                val messages: ArrayList<String> = smsManager.divideMessage(message)
+                smsManager.sendMultipartTextMessage(number, null, messages, null, null)
+            } else smsManager.sendTextMessage(number, null, message, null, null)
+            true
+        } else {
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.SEND_SMS), 0)
+            false
+        }
+    }
+
 }
