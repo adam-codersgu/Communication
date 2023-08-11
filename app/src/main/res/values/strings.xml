@@ -9,7 +9,6 @@
     <string name="send_sms">Send SMS</string>
     <string name="sms">SMS</string>
     <string name="star">*</string>
-    <string name="block_unblock_number">Block/Unblock number</string>
     <string name="call_this_number_back">Call this number back</string>
     <string name="the_direction_of_the_call">The direction of the call</string>
     <string name="number_keypad">Number on keypad</string>
