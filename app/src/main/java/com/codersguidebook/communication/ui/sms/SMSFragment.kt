@@ -10,7 +10,6 @@ import androidx.fragment.app.activityViewModels
 import com.codersguidebook.communication.CommunicationViewModel
 import com.codersguidebook.communication.MainActivity
 import com.codersguidebook.communication.databinding.FragmentSmsBinding
-import com.codersguidebook.communication.ui.sms.SMSAdapter
 
 class SMSFragment : Fragment() {
 

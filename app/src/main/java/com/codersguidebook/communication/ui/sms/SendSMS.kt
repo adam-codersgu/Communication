@@ -1,11 +1,11 @@
 package com.codersguidebook.communication.ui.sms
 
+import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
-import android.app.AlertDialog
-import androidx.fragment.app.DialogFragment
 import android.text.Editable
 import android.text.SpannableStringBuilder
+import androidx.fragment.app.DialogFragment
 import com.codersguidebook.communication.MainActivity
 import com.codersguidebook.communication.databinding.SendSmsBinding
 
