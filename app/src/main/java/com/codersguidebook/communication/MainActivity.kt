@@ -12,30 +12,29 @@ import android.provider.CallLog
 import android.provider.Telephony
 import android.telephony.SmsManager
 import android.view.View
+import android.widget.PopupMenu
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.navigation.findNavController
+import androidx.fragment.app.DialogFragment
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.codersguidebook.communication.CallLogEvent
 import com.codersguidebook.communication.databinding.ActivityMainBinding
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import java.text.SimpleDateFormat
-import java.util.*
-import android.widget.PopupMenu
-import android.widget.Toast
-import androidx.fragment.app.DialogFragment
-import androidx.navigation.fragment.NavHostFragment
 import com.codersguidebook.communication.ui.sms.SendSMS
 import com.codersguidebook.communication.ui.sms.ViewSMS
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
 
     companion object {
-        const val READ_STORAGE_REQUEST_CODE = 1
+        const val READ_CALL_LOG_REQUEST_CODE = 1
         const val READ_SMS_REQUEST_CODE = 2
     }
 
@@ -80,7 +79,7 @@ class MainActivity : AppCompatActivity() {
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode) {
-            READ_STORAGE_REQUEST_CODE -> if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) getCallLogs()
+            READ_CALL_LOG_REQUEST_CODE -> if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) getCallLogs()
             READ_SMS_REQUEST_CODE -> if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) getTexts()
         }
     }
@@ -96,12 +95,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun getCallLogs() {
-        val readStoragePermission = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
         val readCallLogPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CALL_LOG)
 
-        if (readStoragePermission != PackageManager.PERMISSION_GRANTED ||
-            readCallLogPermission != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.READ_CALL_LOG), READ_STORAGE_REQUEST_CODE)
+        if (readCallLogPermission != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_CALL_LOG), READ_CALL_LOG_REQUEST_CODE)
             return
         }
 
@@ -220,5 +217,4 @@ class MainActivity : AppCompatActivity() {
             false
         }
     }
-
 }
